@@ -11,4 +11,12 @@ public partial class SiteMaster : System.Web.UI.MasterPage
     {
 
     }
+    protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)
+    {
+
+    }
+    protected void NavigationMenu0_MenuItemClick(object sender, MenuEventArgs e)
+    {
+
+    }
 }
