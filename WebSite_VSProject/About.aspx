@@ -5,9 +5,12 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>
-        About
+        About Indie Game Dev Zone
     </h2>
     <p>
-        Put content here.
+        Have questions, issues, or concerns about Indie Game Dev Zone? Check out our <a href="About/FAQ.aspx">Frequently Asked Questions (FAQ) Page!</a>
+    </p>
+    <p>
+        To learn more about your rights or legal issues concerning Indie Game Dev Zone or the Creative Commons License, check out our <a href="Legal/Legal.aspx">Legal Page</a>.
     </p>
 </asp:Content>

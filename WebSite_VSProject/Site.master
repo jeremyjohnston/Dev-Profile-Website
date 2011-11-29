@@ -13,7 +13,7 @@
     <div class="page">
         <div class="header">
             <div class="title">
-                <img src="Images/logo%20and%20banner.png" />
+                <img src="/Website_vsproject/Images/logo%20and%20banner.png" />
             </div>
             <div class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
