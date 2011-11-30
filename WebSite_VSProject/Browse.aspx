@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Browse Projects" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
-    CodeFile="Browse.aspx.cs" Inherits="About" %>
+    CodeFile="Browse.aspx.cs" Inherits="Browse" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
