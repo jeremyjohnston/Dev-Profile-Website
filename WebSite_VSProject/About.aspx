@@ -8,6 +8,12 @@
         About Indie Game Dev Zone
     </h2>
     <p>
+        Many sites exist online to help people collaborate on software and team projects, yet they fall short on a missed demographic. Independent game developers, in particular college students, are full of great ideas. Here at UTD many such students have trouble getting their project noticed. Ultimately many of these projects end up being put on indefinite hold after they exit college.
+    </p>
+    <p>
+        IndieGameDevZone.com (domain pending) is a design that brings these student developers together and helps them gain the visibility they need. With our site they will sooner attract fellow students to assist them on their projects, as well as the eye of potential investors.
+    </p>
+    <p>
         Have questions, issues, or concerns about Indie Game Dev Zone? Check out our <a href="About/FAQ.aspx">Frequently Asked Questions (FAQ) Page!</a>
     </p>
     <p>
