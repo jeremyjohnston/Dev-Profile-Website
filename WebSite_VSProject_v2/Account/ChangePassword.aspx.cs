@@ -11,4 +11,8 @@ public partial class Account_ChangePassword : System.Web.UI.Page
     {
 
     }
+    protected void ChangePasswordPushButton_Click(object sender, EventArgs e)
+    {
+
+    }
 }

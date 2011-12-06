@@ -64,14 +64,14 @@ public partial class profilepage : System.Web.UI.Page
 
                     string UpDir = "UpFiles/" + DateTime.Now.ToString("yyyyMM"); 
                    
-                        Directory.CreateDirectory(Server.MapPath(UpDir));
+                    Directory.CreateDirectory(Server.MapPath(UpDir));
                 
                         
                     
                         
-                        string fileName = UpDir + "/" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + Convert.ToString(ran.Next(100, 999));
+                    string fileName = UpDir + "/" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + Convert.ToString(ran.Next(100, 999));
 
-                        fileName = fileName + sExt;
+                    fileName = fileName + sExt;
 
                        
                   Fupload.PostedFile.SaveAs(HttpContext.Current.Server.MapPath(fileName));

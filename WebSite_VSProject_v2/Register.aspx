@@ -39,13 +39,17 @@
     <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
     Sequrity Question: *&nbsp;
-    <asp:DropDownList ID="DropDownList1" runat="server">
-        <asp:ListItem>What is your mother&#39;s maiden name?</asp:ListItem>
-        <asp:ListItem>What is the name of your first pet?</asp:ListItem>
-        <asp:ListItem>What was the name of your first grade teacher?</asp:ListItem>
-        <asp:ListItem>What was the name of your elementary school?</asp:ListItem>
-        <asp:ListItem>Where were you born?</asp:ListItem>
+    <asp:DropDownList ID="DropDownList1" runat="server" 
+        DataSourceID="SqlDataSource1" DataTextField="SecurityQuestion" 
+        DataValueField="pkSecurityQuestionID">
     </asp:DropDownList>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
+        SelectCommand="SELECT [pkSecurityQuestionID], [SecurityQuestion] FROM [SecurityQuestions] WHERE ([isDeleted] = @isDeleted)">
+        <SelectParameters>
+            <asp:Parameter DefaultValue="false" Name="isDeleted" Type="Boolean" />
+        </SelectParameters>
+    </asp:SqlDataSource>
     <br />
     <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
