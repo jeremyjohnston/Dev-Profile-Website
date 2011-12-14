@@ -31,7 +31,7 @@ public partial class _Register : System.Web.UI.Page
                 //Username Check succeeds, move on to further checks or register user.
 
                 //check file upload things, make sure they are working
-
+                
             }
             else
             {
