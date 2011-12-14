@@ -139,7 +139,6 @@
     <asp:Button ID="Button1" runat="server" Text="Submit" onclick="Button1_Click" />
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
-        onselecting="SqlDataSource1_Selecting1" 
         SelectCommand="SELECT [pkSecurityQuestionID], [SecurityQuestion] FROM [SecurityQuestions]">
     </asp:SqlDataSource>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
