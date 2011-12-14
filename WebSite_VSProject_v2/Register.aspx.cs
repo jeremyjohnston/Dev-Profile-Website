@@ -69,39 +69,29 @@ public partial class _Register : System.Web.UI.Page
     /// </summary>
     private void insertValuesIntoTable()
     {
-        SqlDataSource1.SelectCommandType = SqlDataSourceCommandType.StoredProcedure;
-        SqlDataSource1.SelectCommand = "stp_CreateUserProject";
-        SqlDataSource1.SelectParameters.Add("@Email", TypeCode.String,
-        UserTxt.Text);
-        SqlDataSource1.SelectParameters[0].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@Password", TypeCode.String,
-        PasswordTxt1.Text);
-        SqlDataSource1.SelectParameters[1].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@FirstName", TypeCode.String,
-        FirstNameTxt.Text);
-        SqlDataSource1.SelectParameters[2].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@LastName", TypeCode.String,
-        LastNameTxt.Text);
-        SqlDataSource1.SelectParameters[3].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@ProfilePictureLocation", TypeCode.String,
-        profilePicLoc);
-        SqlDataSource1.SelectParameters[4].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@SecurityQuestionID", TypeCode.Int64, DropDownList1.SelectedValue);
-        SqlDataSource1.SelectParameters[5].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@SecurityAnswer", TypeCode.String, SecurityTxt.Text);
-        SqlDataSource1.SelectParameters[6].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@UserDescription", TypeCode.String, DescTxt.Text);
-        SqlDataSource1.SelectParameters[7].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@ProjectName", TypeCode.String,
-        ProjNameTxt.Text);
-        SqlDataSource1.SelectParameters[8].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@ProjectDescription", TypeCode.String,
-        ProjDescTxt.Text);
-        SqlDataSource1.SelectParameters[9].Direction = ParameterDirection.Input;
-        SqlDataSource1.SelectParameters.Add("@ProjectImageLocation", TypeCode.String,
-        projectPicLoc);
-        SqlDataSource1.SelectParameters[10].Direction = ParameterDirection.Input;
-        SqlDataSource1.Select(DataSourceSelectArguments.Empty);
+        SqlConnection conn = new SqlConnection(SqlDataSource1.ConnectionString);
+        SqlCommand cmd = new SqlCommand();
+        cmd.Parameters.Clear();
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.CommandText = "stp_CreateUserProject";
+        cmd.Connection = conn;
+        cmd.Parameters.AddWithValue("@Email", UserTxt.Text);
+        cmd.Parameters.AddWithValue("@Password", PasswordTxt1.Text);
+        cmd.Parameters.AddWithValue("@FirstName", FirstNameTxt.Text);
+        cmd.Parameters.AddWithValue("@LastName", LastNameTxt.Text);
+        cmd.Parameters.AddWithValue("@ProfilePictureLocation", profilePicLoc);
+        cmd.Parameters.AddWithValue("@SecurityQuestionID", long.Parse(DropDownList1.SelectedValue));
+        cmd.Parameters.AddWithValue("@SecurityAnswer", SecurityTxt.Text);
+        cmd.Parameters.AddWithValue("@UserDescription", DescTxt.Text);
+        cmd.Parameters.AddWithValue("@ProjectName", ProjNameTxt.Text);
+        cmd.Parameters.AddWithValue("@ProjectDescription", ProjDescTxt.Text);
+        cmd.Parameters.AddWithValue("@ProjectImageLocation", true);//projectPicLoc);
+        cmd.Connection.Close();
+        cmd.Connection.Open();
+        cmd.ExecuteNonQuery();
+        cmd.Connection.Close();
+
+
         //ErrorLbl.Visible = true;
         //ErrorLbl.Text = "yeah for some reason this isnt working :/";
     }
