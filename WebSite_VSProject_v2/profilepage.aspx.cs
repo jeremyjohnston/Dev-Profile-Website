@@ -13,6 +13,28 @@ public partial class profilepage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        string strLastURL = "";
+        string strCurURL = "";
+        //strLastURL = Request.ServerVariables["HTTP_REFERER"].ToString(); //page com from
+       // strCurURL = Request.RawUrl.ToString(); //current page
+        Label1.Text = strCurURL;
+        Label2.Text = strLastURL;
+        if (!(strLastURL.Contains("Register") || strLastURL.Contains("Login")))
+        {
+            Button_UploadPortrait.Visible = false;
+            Button_Account.Visible = false;
+
+            Button_Education.Visible = false;
+            Button_Person.Visible = false;
+            Button_Project.Visible = false;
+            Button_Work.Visible = false;
+            Button_Save.Visible = false;
+            FileUpload1.Visible = false;
+          //
+            
+        
+        }
         //Account
         TextBox_Useid.Enabled = false;
         TextBox_Password.Enabled = false;
@@ -43,6 +65,7 @@ public partial class profilepage : System.Web.UI.Page
         TextBox_ProjectDescription.Enabled = false;
         TextBox_ContactName.Enabled = false;
         TextBox_ContactPhoneName.Enabled = false;
+        
 
 
     }
