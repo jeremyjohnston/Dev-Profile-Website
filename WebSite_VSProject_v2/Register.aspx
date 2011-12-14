@@ -26,7 +26,7 @@
     (this will be used as your login account name.): *&nbsp;
     <asp:TextBox ID="UserTxt" runat="server"></asp:TextBox>
     <asp:RegularExpressionValidator id="vldEmail" runat="server" 
-        ErrorMessage="Please enter a valid e-mail." ValidationExpression="\w+@\w+\.\w+" 
+        ErrorMessage="Please enter a valid e-mail." ValidationExpression="\S+@\S+\.\S+" 
         ControlToValidate="UserTxt" style="color: #FF0000"/>
     &nbsp;&nbsp;<br />
     <br />
@@ -34,7 +34,7 @@
     <asp:TextBox ID="PasswordTxt1" TextMode="Password" runat="server" 
         style="color: #000000"></asp:TextBox>
     &nbsp;&nbsp;<asp:CompareValidator ID="CompareValidator1" runat="server" 
-        ControlToCompare="PasswordTxt2" ControlToValidate="PasswordTxt1" 
+        ControlToCompare="PasswordTxt1" ControlToValidate="PasswordTxt2" 
         ErrorMessage="Passwords must match!" style="color: #FF0000"></asp:CompareValidator>
     <br />
     <br />
