@@ -90,13 +90,9 @@ public partial class profilepage : System.Web.UI.Page
                         this.Label_imageUrl.Text = "file is larger than 1G, can not upload";
                         return;
                     }
-
                     Random ran = new Random();
-
                     string UpDir = "UpFiles/" + DateTime.Now.ToString("yyyyMM"); 
-                   
                     Directory.CreateDirectory(Server.MapPath(UpDir));
- 
                    string fileName = UpDir + "/" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + Convert.ToString(ran.Next(100, 999));
 
                     fileName = fileName + sExt;
@@ -121,7 +117,8 @@ public partial class profilepage : System.Web.UI.Page
         protected void Button2_Click(object sender, EventArgs e)
         {
             //there may be time straint or some problems on exchanging data with database, 
-            //In order to you can see the basic effect, so I also show the change after modification in some labels.  
+            //In order to you can see the basic effect, so I also put label control on the page to show the change after modification.  
+
 
             //Account
             Label_display_useid.Text =": "+ TextBox_Useid.Text;           
@@ -130,16 +127,16 @@ public partial class profilepage : System.Web.UI.Page
             //TextBox_Useid.Enabled = false;
             TextBox_Password.Visible = false;
             TextBox_Email.Visible = false;
-            
+            // update account
             SqlDataSource1.UpdateCommand = "Update Users SET  ProfilePictureLocation='"+Image1.ImageUrl+"', password ='" + TextBox_Password.Text + "', Email='" + TextBox_Email.Text + "' where pkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
             SqlDataSource1.Update();
-
+            //-------------------------------------------------------------
             //Personal
             Label_display_name.Text =": " + TextBox_Name.Text;
             Label_display_address.Text =": " + TextBox_Address.Text;
             Label_display_phonenumber.Text=": " + TextBox_Phone.Text;
             
-
+            //
             TextBox_Name.Visible = false;
             TextBox_Address.Visible = false;
             TextBox_Phone.Visible = false;
@@ -157,13 +154,17 @@ public partial class profilepage : System.Web.UI.Page
             TextBox_EEndDate.Visible = false;
             //if not exist insert,  if exist update. Because time straint, otherwise, we should write a statement, set a flag, when user just register,
             //enter in profile page firstly, insert. Then when user enter next time, update,
-            //right now database is empty, so insert
+            //how project table connect to users table,
+            // has no time to update  other parts
             
-            SqlDataSource1.InsertCommand = "INSERT INTO Educations VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + TextBox_StudentId.Text + "','" + TextBox_School.Text +"','" + TextBox_Major.Text + "', '" + TextBox_EStartDate.Text + "','" + TextBox_EEndDate.Text + "',0,GETDATE())";
-            SqlDataSource1.Insert();
+           // SqlDataSource2.InsertCommand = "SET   IDENTITY_INSERT   Educations   ON";
+           // SqlDataSource2.InsertCommand = " INSERT INTO Educations(StudentID, School, Major,  StartDate, EndDate, isDeleted, ModifiedDate) VALUES ('" + TextBox_StudentId.Text + "','" + TextBox_School.Text + "','" + TextBox_Major.Text + "', '" + TextBox_EStartDate.Text + "','" + TextBox_EEndDate.Text + "', 0, GETDATA())";
+          //  SqlDataSource2.Insert();
+            // SqlDataSource2.InsertCommand = "SET   IDENTITY_INSERT   Educations   OFF"; 
 
-           // SqlDataSource1.UpdateCommand = "Update Educations SET pkEducationID='"+ System.Convert.ToInt32(TextBox_Useid.Text)+"', fkUserID='"+ System.Convert.ToInt32(TextBox_Useid.Text)+"', StudentID='" + TextBox_StudentId.Text + "', School='" + TextBox_School.Text +"',  Major='" + TextBox_Major.Text + "', StartDate='" + TextBox_EStartDate.Text + "', EndDate= '" + TextBox_EEndDate.Text + "'";
-           //     SqlDataSource1.Update();
+            SqlDataSource2.UpdateCommand = " Update Educations SET StudentID='" + TextBox_StudentId.Text + "', School='" + TextBox_School.Text + "',Major='" + TextBox_Major.Text + "', StartDate='" + TextBox_EStartDate.Text + "', EndDate='" + TextBox_EEndDate.Text + "', isDeleted=0, ModifiedDate=GETDATE() where fkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
+            SqlDataSource2.Update();
+            
 
             //Work
             Label_display_company.Text = ": " + TextBox_Company.Text;
@@ -177,17 +178,18 @@ public partial class profilepage : System.Web.UI.Page
             TextBox_WStartDate.Visible = false;
             TextBox_WEndDate.Visible = false;
 
-            SqlDataSource1.InsertCommand = "INSERT INTO WorkInformations VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + TextBox_Company.Text + "','" + TextBox_School.Text + "','" + TextBox_Position.Text + "', '" + TextBox_Description.Text + "','" + TextBox_WStartDate.Text + "','" + TextBox_WEndDate.Text + "',0,GETDATE())";
-            SqlDataSource1.Insert();
+          //  SqlDataSource1.InsertCommand = "INSERT INTO WorkInformations VALUES ('" + TextBox_Company.Text + "','" + TextBox_Position.Text + "', '" + TextBox_Description.Text + "','" + TextBox_WStartDate.Text + "','" + TextBox_WEndDate.Text + "',0,GETDATE())";
+          //  SqlDataSource1.Insert();
 
+            SqlDataSource3.UpdateCommand = " Update  WorkInformations SET Company='" + TextBox_Company.Text + "', Position='" + TextBox_Position.Text + "', Description='" + TextBox_Position.Text + "', StartDate='" + TextBox_WStartDate.Text + "',EndDate='" + TextBox_WEndDate.Text + "',isDeleted=0, ModifiedDate=GETDATE() where fkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
+                SqlDataSource3.Update();
 
 
             //Project Description
             Label_display_projectdescription.Text=TextBox_ProjectDescription.Text;
 
             //wait test
-            SqlDataSource1.InsertCommand = "INSERT INTO Projects VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','ProjectName','" + TextBox_ProjectDescription.Text + "',GETDATE(),0,GETDATE(),'ProjectimageLocation')";
-            SqlDataSource1.Insert();
+         
            
             //Member List
             Label_display_memberlist.Text = TextBox_MemberList.Text;
@@ -201,8 +203,10 @@ public partial class profilepage : System.Web.UI.Page
             TextBox_ContactPhoneName.Visible = false;
 
             // wait test
-            SqlDataSource1.InsertCommand = "INSERT INTO UserProjects VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "',0,GETDATE())";
-            SqlDataSource1.Insert();
+           // SqlDataSource1.InsertCommand = "INSERT INTO UserProjects VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "',0,GETDATE())";
+           // SqlDataSource1.Insert();
+
+
             
         }
 

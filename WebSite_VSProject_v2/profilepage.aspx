@@ -213,8 +213,15 @@
     </div>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
-        SelectCommand="SELECT * FROM [Educations]"></asp:SqlDataSource>
+        SelectCommand="SELECT * FROM [Users]"></asp:SqlDataSource>
     <br />
+    
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
+        SelectCommand="SELECT * FROM [Educations]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
+        SelectCommand="SELECT * FROM [WorkInformations]"></asp:SqlDataSource>
     
     <br />
    <div  class="profile" style="text-align:center;">
