@@ -10,6 +10,9 @@ public partial class Default2 : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
+        string shangci = Request.UrlReferrer.ToString();
+        Label1.Text = shangci;
+
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
