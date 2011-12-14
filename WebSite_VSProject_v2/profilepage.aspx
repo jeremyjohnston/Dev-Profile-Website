@@ -24,7 +24,7 @@
                 width: 691px;
                 height: 114px;
             }
-            div
+            div.profile
             {
                 border: thin ridge #00CCFF; 
                 text-align:left;
@@ -53,7 +53,7 @@
     <p style="text-align:center;">
          We are Independent Game Development Zone </p>
     <p style="text-align:center;">
-         Not userXXXX? 
+         Not user ? 
          <asp:HyperLink ID="HyperLink_Logoff" runat="server" NavigateUrl="~/Default.aspx">Log Off</asp:HyperLink>
     </p>
     <asp:Image ID="Image1" runat="server" Height="230px" Width="150px" />
@@ -68,9 +68,10 @@
     <br />
     <br />
     
-    <div style="border: thin ridge #00CCFF; text-align:left;" align="center">
+    <div class="profile" >
         <p >Account Information</p>
-        <asp:Button ID="Button3" runat="server" Text="Edit" />
+        <asp:Button ID="Button_Account" runat="server" Text="Edit" onclick="Button_Account_Click" 
+            />
         <br />
         <asp:Label ID="Label_Userid" runat="server" Text="UserID"></asp:Label>
         &nbsp;&nbsp;&nbsp;
@@ -83,14 +84,19 @@
             Width="133px"></asp:TextBox>
         <asp:Label ID="Label_display_password"  runat="server"></asp:Label>
         <br />
+        <asp:Label ID="Label_Email" runat="server" Text="Email"></asp:Label>
+        <asp:TextBox ID="TextBox_Email" runat="server" Width="133px"></asp:TextBox>
+        <asp:Label ID="Label_display_email" runat="server"></asp:Label>
+        <br />
     </div>
     <br />
     
     
     <br />
-    <div  >
+    <div class="profile" >
         <p>Personal Information</p>
-        <asp:Button ID="Button4" runat="server" Text="Edit" />
+        <asp:Button ID="Button_Person" runat="server" Text="Edit" 
+            onclick="Button_Person_Click" />
         <br />
         <asp:Label ID="Label_Name" runat="server" Text="Name" Width="100px"></asp:Label>
         <asp:TextBox ID="TextBox_Name" runat="server" Width="133px" 
@@ -110,9 +116,10 @@
     <br />
     
     <br />
-    <div>
+    <div class="profile">
         <p>Education Information</p>
-        <asp:Button ID="Button5" runat="server" Text="Edit" />
+        <asp:Button ID="Button_Education" runat="server" Text="Edit" 
+            onclick="Button_Education_Click" />
         <br />
      <asp:Label ID="Label_StudentId" runat="server" Text="StudentID" Width="100px"></asp:Label>
         <asp:TextBox ID="TextBox_StudentId" runat="server"></asp:TextBox>
@@ -140,9 +147,10 @@
     <br />
     
     <br />
-    <div >
+    <div class="profile">
         <p>   Work Information</p>
-        <asp:Button ID="Button6" runat="server" Text="Edit" />
+        <asp:Button ID="Button_Work" runat="server" Text="Edit" 
+            onclick="Button_Work_Click" />
         <br />
     <asp:Label ID="Label_Company" runat="server" Text="Company" Width="100px"></asp:Label>
         <asp:TextBox ID="TextBox_Company" runat="server"></asp:TextBox>
@@ -169,39 +177,47 @@
     </div>
     <br />
     
-    <div  >
+    <div class="profile" >
         <p>Project</p>
+        <p>
+        <asp:Button ID="Button_Project" runat="server" Text="Edit" 
+            onclick="Button_Project_Click" />
+        </p>
         <p>Project Description</p>
-        <asp:Button ID="Button7" runat="server" Text="Edit" />
         <br />
-        <textarea id="TextArea_ProjectDescription" name="S2" rows="6"  Runat="server" 
-            cols="50"></textarea><br />
+        <asp:TextBox ID="TextBox_ProjectDescription" runat="server" Height="115px" 
+            TextMode="MultiLine" Width="755px"></asp:TextBox>
+        <br />
         <asp:Label ID="Label_display_projectdescription" runat="server"></asp:Label>
         <br />
         <p>MemberList</p>
-        <asp:Button ID="Button8" runat="server" Text="Edit"  />
         <br />
-        <textarea id="TextArea_MemberList" name="S1" rows="6"  Runat="server" cols="50"></textarea><br />
+        <asp:TextBox ID="TextBox_MemberList" runat="server" Height="143px" 
+            TextMode="MultiLine" Width="533px"></asp:TextBox>
+        <br />
         <asp:Label ID="Label_display_memberlist" runat="server"></asp:Label>
         <br />
         <br />
         <p>Contacts</p>
-        <asp:Button ID="Button9" runat="server" Text="Edit" />
         <br />
         <asp:Label ID="Label_ContactName" runat="server" Text="Contact Name"></asp:Label>
         &nbsp;&nbsp;
         <asp:TextBox ID="TextBox_ContactName" runat="server"></asp:TextBox>
+        <asp:Label ID="Label_display_contactname" runat="server" Text=""></asp:Label>
         <br />
         <asp:Label ID="Label_ContactPhoneNumber" runat="server" Text="Phone Number "></asp:Label>
-        &nbsp;<asp:TextBox ID="TextBox_ContactPhoneName" runat="server"></asp:TextBox>
+        &nbsp;<asp:TextBox ID="TextBox_ContactPhoneName" runat="server" Height="22px"></asp:TextBox>
+        <asp:Label ID="Label_display_contactphonenumber" runat="server"></asp:Label>
         <br />
         <br />
-        <p>Demo</p>
     </div>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
+        SelectCommand="SELECT * FROM [Educations]"></asp:SqlDataSource>
     <br />
     
     <br />
-   <div  style="text-align:center;">
+   <div  class="profile" style="text-align:center;">
    <asp:Button ID="Button2" runat="server" Text="Save" onclick="Button2_Click" 
            style="height: 26px"/>
 

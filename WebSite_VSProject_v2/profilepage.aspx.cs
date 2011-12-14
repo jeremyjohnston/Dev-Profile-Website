@@ -13,6 +13,37 @@ public partial class profilepage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Account
+        TextBox_Useid.Enabled = false;
+        TextBox_Password.Enabled = false;
+        TextBox_Email.Enabled = false;
+        //Personal
+
+        TextBox_Name.Enabled = false;
+        TextBox_Address.Enabled = false;
+        TextBox_Phone.Enabled = false;
+        //Education
+
+        TextBox_StudentId.Enabled = false;
+        TextBox_School.Enabled = false;
+        TextBox_Major.Enabled = false;
+        TextBox_EStartDate.Enabled = false;
+        TextBox_EEndDate.Enabled = false;
+        //Work
+
+        TextBox_Company.Enabled = false;
+        TextBox_Position.Enabled = false;
+        TextBox_Description.Enabled = false;
+        TextBox_WStartDate.Enabled = false;
+        TextBox_WEndDate.Enabled = false;
+
+        //Project Description
+
+        TextBox_MemberList.Enabled =false;
+        TextBox_ProjectDescription.Enabled = false;
+        TextBox_ContactName.Enabled = false;
+        TextBox_ContactPhoneName.Enabled = false;
+
 
     }
 
@@ -65,11 +96,8 @@ public partial class profilepage : System.Web.UI.Page
                     string UpDir = "UpFiles/" + DateTime.Now.ToString("yyyyMM"); 
                    
                     Directory.CreateDirectory(Server.MapPath(UpDir));
-                
-                        
-                    
-                        
-                    string fileName = UpDir + "/" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + Convert.ToString(ran.Next(100, 999));
+ 
+                   string fileName = UpDir + "/" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + Convert.ToString(ran.Next(100, 999));
 
                     fileName = fileName + sExt;
 
@@ -89,24 +117,33 @@ public partial class profilepage : System.Web.UI.Page
 
 
 
-        protected void ChangePassword1_ChangedPassword(object sender, EventArgs e)
-        {
-
-        }
+        
         protected void Button2_Click(object sender, EventArgs e)
         {
+            //there may be time straint or some problems on exchanging data with database, 
+            //In order to you can see the basic effect, so I also show the change after modification in some labels.  
+
             //Account
-            Label_display_useid.Text =TextBox_Useid.Text;
+            Label_display_useid.Text =": "+ TextBox_Useid.Text;           
+            Label_display_email.Text = ": " + TextBox_Email.Text;         
             TextBox_Useid.Visible = false;
-            TextBox_Useid.Enabled = false;
+            //TextBox_Useid.Enabled = false;
             TextBox_Password.Visible = false;
+            TextBox_Email.Visible = false;
+            
+            SqlDataSource1.UpdateCommand = "Update Users SET  ProfilePictureLocation='"+Image1.ImageUrl+"', password ='" + TextBox_Password.Text + "', Email='" + TextBox_Email.Text + "' where pkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
+            SqlDataSource1.Update();
+
             //Personal
             Label_display_name.Text =": " + TextBox_Name.Text;
             Label_display_address.Text =": " + TextBox_Address.Text;
             Label_display_phonenumber.Text=": " + TextBox_Phone.Text;
+            
+
             TextBox_Name.Visible = false;
             TextBox_Address.Visible = false;
             TextBox_Phone.Visible = false;
+            
             //Education
             Label_display_studentid.Text =": " +TextBox_StudentId.Text;
             Label_display_school.Text = ": " + TextBox_School.Text;
@@ -118,6 +155,16 @@ public partial class profilepage : System.Web.UI.Page
             TextBox_Major.Visible = false;
             TextBox_EStartDate.Visible = false;
             TextBox_EEndDate.Visible = false;
+            //if not exist insert,  if exist update. Because time straint, otherwise, we should write a statement, set a flag, when user just register,
+            //enter in profile page firstly, insert. Then when user enter next time, update,
+            //right now database is empty, so insert
+            
+            SqlDataSource1.InsertCommand = "INSERT INTO Educations VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + TextBox_StudentId.Text + "','" + TextBox_School.Text +"','" + TextBox_Major.Text + "', '" + TextBox_EStartDate.Text + "','" + TextBox_EEndDate.Text + "',0,GETDATE())";
+            SqlDataSource1.Insert();
+
+           // SqlDataSource1.UpdateCommand = "Update Educations SET pkEducationID='"+ System.Convert.ToInt32(TextBox_Useid.Text)+"', fkUserID='"+ System.Convert.ToInt32(TextBox_Useid.Text)+"', StudentID='" + TextBox_StudentId.Text + "', School='" + TextBox_School.Text +"',  Major='" + TextBox_Major.Text + "', StartDate='" + TextBox_EStartDate.Text + "', EndDate= '" + TextBox_EEndDate.Text + "'";
+           //     SqlDataSource1.Update();
+
             //Work
             Label_display_company.Text = ": " + TextBox_Company.Text;
             Label_display_position.Text = ": " + TextBox_Position.Text;
@@ -129,20 +176,100 @@ public partial class profilepage : System.Web.UI.Page
             TextBox_Description.Visible = false;
             TextBox_WStartDate.Visible = false;
             TextBox_WEndDate.Visible = false;
-            
+
+            SqlDataSource1.InsertCommand = "INSERT INTO WorkInformations VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + TextBox_Company.Text + "','" + TextBox_School.Text + "','" + TextBox_Position.Text + "', '" + TextBox_Description.Text + "','" + TextBox_WStartDate.Text + "','" + TextBox_WEndDate.Text + "',0,GETDATE())";
+            SqlDataSource1.Insert();
+
+
+
             //Project Description
-            Label_display_projectdescription.Text=TextArea_ProjectDescription.InnerText;
+            Label_display_projectdescription.Text=TextBox_ProjectDescription.Text;
+
+            //wait test
+            SqlDataSource1.InsertCommand = "INSERT INTO Projects VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','ProjectName','" + TextBox_ProjectDescription.Text + "',GETDATE(),0,GETDATE(),'ProjectimageLocation')";
+            SqlDataSource1.Insert();
            
             //Member List
-            Label_display_memberlist.Text = TextArea_MemberList.InnerText;
+            Label_display_memberlist.Text = TextBox_MemberList.Text;
 
-            TextArea_MemberList.Visible = false;
-            TextArea_ProjectDescription.Visible = false;
-            Button1.Visible = false;
-            
+            TextBox_MemberList.Visible = false;
+            TextBox_ProjectDescription.Visible = false;
+
+            Label_display_contactname.Text = ": " + TextBox_ContactName.Text;
+            Label_display_contactphonenumber.Text = ": " + TextBox_ContactPhoneName.Text;
+            TextBox_ContactName.Visible = false;
+            TextBox_ContactPhoneName.Visible = false;
+
+            // wait test
+            SqlDataSource1.InsertCommand = "INSERT INTO UserProjects VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "',0,GETDATE())";
+            SqlDataSource1.Insert();
             
         }
 
+        protected void Button_Account_Click(object sender, EventArgs e)
+        {
 
-       
+            TextBox_Useid.Enabled = true;
+            TextBox_Password.Enabled = true;
+            TextBox_Email.Enabled = true;
+            TextBox_Useid.Visible = true;
+            TextBox_Password.Visible = true;
+            TextBox_Email.Visible = true;
+
+        }
+
+        protected void Button_Person_Click(object sender, EventArgs e)
+        {
+            TextBox_Name.Enabled = true;
+            TextBox_Address.Enabled = true;
+            TextBox_Phone.Enabled = true;
+            TextBox_Name.Visible = true;
+            TextBox_Address.Visible = true;
+            TextBox_Phone.Visible = true;
+
+        }
+        protected void Button_Education_Click(object sender, EventArgs e)
+        {
+            TextBox_StudentId.Enabled = true;
+            TextBox_School.Enabled = true;
+            TextBox_Major.Enabled = true;
+            TextBox_EStartDate.Enabled = true;
+            TextBox_EEndDate.Enabled = true;
+
+            TextBox_StudentId.Visible = true;
+            TextBox_School.Visible = true;
+            TextBox_Major.Visible = true;
+            TextBox_EStartDate.Enabled = true;
+            TextBox_EEndDate.Visible = true;
+        }
+        protected void Button_Work_Click(object sender, EventArgs e)
+        {
+            TextBox_Company.Enabled = true;
+            TextBox_Position.Enabled = true;
+            TextBox_Description.Enabled = true;
+            TextBox_WStartDate.Enabled = true;
+            TextBox_WEndDate.Enabled = true;
+            
+            TextBox_Company.Visible = true;
+            TextBox_Position.Visible = true;
+            TextBox_Description.Visible = true;
+            TextBox_WStartDate.Visible = true;
+            TextBox_WEndDate.Visible = true;
+            
+            
+          
+
+        }
+        protected void Button_Project_Click(object sender, EventArgs e)
+        {
+            TextBox_MemberList.Enabled = true;
+            TextBox_ProjectDescription.Enabled = true;
+            TextBox_ContactPhoneName.Enabled = true;
+            TextBox_ContactName.Enabled = true;
+
+            TextBox_MemberList.Visible = true;
+            TextBox_ProjectDescription.Visible = true;
+            TextBox_ContactPhoneName.Visible = true;
+            TextBox_ContactName.Visible = true;
+        }
 }
