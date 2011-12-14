@@ -102,7 +102,8 @@ public partial class _Register : System.Web.UI.Page
         projectPicLoc);
         SqlDataSource1.SelectParameters[10].Direction = ParameterDirection.Input;
         SqlDataSource1.Select(DataSourceSelectArguments.Empty);
-        
+        //ErrorLbl.Visible = true;
+        //ErrorLbl.Text = "yeah for some reason this isnt working :/";
     }
     /// <summary>
     /// Method to check desired username/email against database to insure unique. Returns true if email is unique and not in use, returns false if taken.
@@ -160,9 +161,11 @@ public partial class _Register : System.Web.UI.Page
         //generate a unique filename for image so that it doesn't overwrite any existing images
         String imageName = Guid.NewGuid().ToString().Replace("-", string.Empty) + extension;
         String fullUploadPath = Path.Combine(uploadDir, imageName);
+        String ServerPath = Request.Url.AbsoluteUri.Replace("Register.aspx", string.Empty) + "Images/" + imageName;
         try
         {
-            ErrorLbl.Text = fullUploadPath;
+            ErrorLbl.Visible = true;
+            ErrorLbl.Text = ServerPath;
             uploader.PostedFile.SaveAs(fullUploadPath);
 
         }
@@ -172,7 +175,7 @@ public partial class _Register : System.Web.UI.Page
             ErrorLbl.Text = e.Message;
             return null;
         }
-        return fullUploadPath;
+        return ServerPath;
     }
     
 }
