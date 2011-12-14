@@ -16,7 +16,7 @@ public partial class profilepage : System.Web.UI.Page
 
         string strLastURL = "";
         string strCurURL = "";
-        //strLastURL = Request.ServerVariables["HTTP_REFERER"].ToString(); //page com from
+        //strLastURL = Request.ServerVariables["HTTP_REFERER"].ToString(); //page where come from
        // strCurURL = Request.RawUrl.ToString(); //current page
         Label1.Text = strCurURL;
         Label2.Text = strLastURL;
@@ -35,32 +35,28 @@ public partial class profilepage : System.Web.UI.Page
             
         
         }
+        
         //Account
         TextBox_Useid.Enabled = false;
         TextBox_Password.Enabled = false;
         TextBox_Email.Enabled = false;
         //Personal
-
         TextBox_Name.Enabled = false;
         TextBox_Address.Enabled = false;
         TextBox_Phone.Enabled = false;
         //Education
-
         TextBox_StudentId.Enabled = false;
         TextBox_School.Enabled = false;
         TextBox_Major.Enabled = false;
         TextBox_EStartDate.Enabled = false;
         TextBox_EEndDate.Enabled = false;
         //Work
-
         TextBox_Company.Enabled = false;
         TextBox_Position.Enabled = false;
         TextBox_Description.Enabled = false;
         TextBox_WStartDate.Enabled = false;
         TextBox_WEndDate.Enabled = false;
-
         //Project Description
-
         TextBox_MemberList.Enabled =false;
         TextBox_ProjectDescription.Enabled = false;
         TextBox_ContactName.Enabled = false;
@@ -129,18 +125,12 @@ public partial class profilepage : System.Web.UI.Page
                 else
                     Label_imageUrl.Text = "Choose source！";
                 return;
-
-          
-
         }
 
-
-
-        
         protected void Button2_Click(object sender, EventArgs e)
         {
             //there may be time straint or some problems on exchanging data with database, 
-            //In order to you can see the basic effect, so I also put label control on the page to show the change after modification.  
+            //In order to people can see the basic effect, so we also put label control on the page to show the change after modification.  
 
 
             //Account
@@ -150,9 +140,7 @@ public partial class profilepage : System.Web.UI.Page
             //TextBox_Useid.Enabled = false;
             TextBox_Password.Visible = false;
             TextBox_Email.Visible = false;
-            // update account
-            SqlDataSource1.UpdateCommand = "Update Users SET  ProfilePictureLocation='"+Image1.ImageUrl+"', password ='" + TextBox_Password.Text + "', Email='" + TextBox_Email.Text + "' where pkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
-            SqlDataSource1.Update();
+            
             //-------------------------------------------------------------
             //Personal
             Label_display_name.Text =": " + TextBox_Name.Text;
@@ -175,19 +163,12 @@ public partial class profilepage : System.Web.UI.Page
             TextBox_Major.Visible = false;
             TextBox_EStartDate.Visible = false;
             TextBox_EEndDate.Visible = false;
-            //if not exist insert,  if exist update. Because time straint, otherwise, we should write a statement, set a flag, when user just register,
-            //enter in profile page firstly, insert. Then when user enter next time, update,
-            //how project table connect to users table,
-            // has no time to update  other parts
+            
             
            // SqlDataSource2.InsertCommand = "SET   IDENTITY_INSERT   Educations   ON";
            // SqlDataSource2.InsertCommand = " INSERT INTO Educations(StudentID, School, Major,  StartDate, EndDate, isDeleted, ModifiedDate) VALUES ('" + TextBox_StudentId.Text + "','" + TextBox_School.Text + "','" + TextBox_Major.Text + "', '" + TextBox_EStartDate.Text + "','" + TextBox_EEndDate.Text + "', 0, GETDATA())";
           //  SqlDataSource2.Insert();
             // SqlDataSource2.InsertCommand = "SET   IDENTITY_INSERT   Educations   OFF"; 
-
-            SqlDataSource2.UpdateCommand = " Update Educations SET StudentID='" + TextBox_StudentId.Text + "', School='" + TextBox_School.Text + "',Major='" + TextBox_Major.Text + "', StartDate='" + TextBox_EStartDate.Text + "', EndDate='" + TextBox_EEndDate.Text + "', isDeleted=0, ModifiedDate=GETDATE() where fkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
-            SqlDataSource2.Update();
-            
 
             //Work
             Label_display_company.Text = ": " + TextBox_Company.Text;
@@ -204,8 +185,7 @@ public partial class profilepage : System.Web.UI.Page
           //  SqlDataSource1.InsertCommand = "INSERT INTO WorkInformations VALUES ('" + TextBox_Company.Text + "','" + TextBox_Position.Text + "', '" + TextBox_Description.Text + "','" + TextBox_WStartDate.Text + "','" + TextBox_WEndDate.Text + "',0,GETDATE())";
           //  SqlDataSource1.Insert();
 
-            SqlDataSource3.UpdateCommand = " Update  WorkInformations SET Company='" + TextBox_Company.Text + "', Position='" + TextBox_Position.Text + "', Description='" + TextBox_Position.Text + "', StartDate='" + TextBox_WStartDate.Text + "',EndDate='" + TextBox_WEndDate.Text + "',isDeleted=0, ModifiedDate=GETDATE() where fkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
-                SqlDataSource3.Update();
+          
 
 
             //Project Description
@@ -229,7 +209,20 @@ public partial class profilepage : System.Web.UI.Page
            // SqlDataSource1.InsertCommand = "INSERT INTO UserProjects VALUES ('" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "','" + System.Convert.ToInt32(TextBox_Useid.Text) + "',0,GETDATE())";
            // SqlDataSource1.Insert();
 
+            //if not exist insert,  if exist update. Because of time straint, otherwise, we should write a statement, set a flag, when entered user is just registered,
+            //they enter in profile page firstly, the information should be inserted . Then when users enter next time, information will be updated,
+            //how project table connect to users table,
+            // has no time to update  other parts
 
+            // update account
+            SqlDataSource1.UpdateCommand = "Update Users SET  ProfilePictureLocation='" + Image1.ImageUrl + "', password ='" + TextBox_Password.Text + "', Email='" + TextBox_Email.Text + "' where pkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
+            SqlDataSource1.Update();
+            // update Education
+            SqlDataSource2.UpdateCommand = " Update Educations SET StudentID='" + TextBox_StudentId.Text + "', School='" + TextBox_School.Text + "',Major='" + TextBox_Major.Text + "', StartDate='" + TextBox_EStartDate.Text + "', EndDate='" + TextBox_EEndDate.Text + "', isDeleted=0, ModifiedDate=GETDATE() where fkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
+            SqlDataSource2.Update();
+            //update workinformation
+            SqlDataSource3.UpdateCommand = " Update  WorkInformations SET Company='" + TextBox_Company.Text + "', Position='" + TextBox_Position.Text + "', Description='" + TextBox_Position.Text + "', StartDate='" + TextBox_WStartDate.Text + "',EndDate='" + TextBox_WEndDate.Text + "',isDeleted=0, ModifiedDate=GETDATE() where fkUserID= '" + System.Convert.ToInt32(TextBox_Useid.Text) + "'";
+            SqlDataSource3.Update();
             
         }
 

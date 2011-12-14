@@ -15,8 +15,14 @@
     <asp:Label ID="Label1" runat="server"></asp:Label>
     <br />
     <asp:Button ID="Button1" runat="server" Text="Button" onclick="Button1_Click" />
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource2" runat="server"></asp:SqlDataSource>
-    <asp:SqlDataSource ID="SqlDataSource3" runat="server"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
+        SelectCommand="SELECT * FROM [Users]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
+        SelectCommand="SELECT * FROM [WorkInformations]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
+        SelectCommand="SELECT * FROM [Educations]"></asp:SqlDataSource>
 </asp:Content>
 
