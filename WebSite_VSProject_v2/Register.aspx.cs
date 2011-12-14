@@ -50,6 +50,9 @@ public partial class _Register : System.Web.UI.Page
                 {
                     //if uploads go through, insert everything into the table! 
                     insertValuesIntoTable();
+                    Response.Redirect("~/Account/Login.aspx");
+
+
                 }
                 
             }
@@ -85,7 +88,7 @@ public partial class _Register : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@UserDescription", DescTxt.Text);
         cmd.Parameters.AddWithValue("@ProjectName", ProjNameTxt.Text);
         cmd.Parameters.AddWithValue("@ProjectDescription", ProjDescTxt.Text);
-        cmd.Parameters.AddWithValue("@ProjectImageLocation", true);//projectPicLoc);
+        cmd.Parameters.AddWithValue("@ProjectImageLocation", projectPicLoc);//projectPicLoc);
         cmd.Connection.Close();
         cmd.Connection.Open();
         cmd.ExecuteNonQuery();
@@ -154,8 +157,8 @@ public partial class _Register : System.Web.UI.Page
         String ServerPath = Request.Url.AbsoluteUri.Replace("Register.aspx", string.Empty) + "Images/" + imageName;
         try
         {
-            ErrorLbl.Visible = true;
-            ErrorLbl.Text = ServerPath;
+            //ErrorLbl.Visible = true;
+            //ErrorLbl.Text = ServerPath;
             uploader.PostedFile.SaveAs(fullUploadPath);
 
         }
