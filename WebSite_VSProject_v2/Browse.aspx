@@ -4,30 +4,38 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>
-        BROWSE</h2>
+    <h2>BROWSE</h2>
 <p>
+ 
         Site-wide search :&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button1" runat="server" Text="SEARCH" />
 </p>
+
     <p>
-        
-        <asp:Table ID="Table1" runat="server" Height="150px" Width="529px" 
-            Caption="Browse Projects" CellPadding="5" CellSpacing="10">
-            <asp:TableRow runat="server">
-                <asp:TableCell runat="server"><asp:Image ID="Image1" runat="server" BorderColor="#1892BB" BorderStyle="Solid" ImageUrl="~/Images/project-1.png" /></asp:TableCell>
-                <asp:TableCell runat="server"><asp:Image ID="Image2" runat="server" BorderColor="#1892BB" BorderStyle="Solid" ImageUrl="~/Images/project-2.png" /></asp:TableCell>
-                <asp:TableCell runat="server"><asp:Image ID="Image3" runat="server" BorderColor="#1892BB" BorderStyle="Solid" ImageUrl="~/Images/project-3.png" /></asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow runat="server">
-                <asp:TableCell runat="server"><a href="profilepage.aspx"><asp:Image ID="Image4" runat="server" BorderColor="#1892BB" BorderStyle="Solid" ImageUrl="~/Images/project-1.png" /></a></asp:TableCell>
-                <asp:TableCell runat="server"><a href="profilepage.aspx"><asp:Image ID="Image5" runat="server" BorderColor="#1892BB" BorderStyle="Solid" ImageUrl="~/Images/project-2.png" /></a></asp:TableCell>
-                <asp:TableCell runat="server"><a href="profilepage.aspx"><asp:Image ID="Image6" runat="server" BorderColor="#1892BB" BorderStyle="Solid" ImageUrl="~/Images/project-3.png" /></a></asp:TableCell>
-            </asp:TableRow>
-        </asp:Table>
-    </p>
+            <asp:SqlDataSource ID="IGDZdb" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:IndyDevZoneConnectionString2 %>" 
+            SelectCommand="SELECT [ProjectName], [ProjectTags], [ProjectImageLocation] FROM [Projects]">
+            </asp:SqlDataSource>
+
+
+        <asp:GridView ID="GridView1" runat="server" DataSourceID="IGDZdb" 
+           AutoGenerateColumns="False" GridLines="None" 
+                onselectedindexchanged="GridView1_SelectedIndexChanged">
+            <Columns>
+
+                <asp:CommandField ShowSelectButton="True" />
+                <asp:BoundField DataField="ProjectName" HeaderText="ProjectName" 
+                    SortExpression="ProjectName"/>
+                <asp:ImageField DataImageUrlField="ProjectImageLocation" 
+                    DataImageUrlFormatString="~\Images\{0}.png" HeaderText="Project">
+                </asp:ImageField>
+                <asp:BoundField DataField="ProjectTags" HeaderText="ProjectTags" 
+                    SortExpression="ProjectTags" />
+            </Columns>
+        </asp:GridView>
+
     <p>
         &nbsp;</p>
 </asp:Content>
